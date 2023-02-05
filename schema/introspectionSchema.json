@@ -1,0 +1,78 @@
+{
+"__validationErrors":
+    [
+    ],
+"_directives":
+    [
+    "@include",
+    "@skip",
+    "@deprecated",
+    "@specifiedBy"
+    ],
+"_implementationsMap":
+    {
+    },
+"_mutationType": null,
+"_queryType": "Query",
+"_subscriptionType": null,
+"_subTypeMap":
+    {
+    },
+"_typeMap":
+    {
+    "__Directive": "__Directive",
+    "__DirectiveLocation": "__DirectiveLocation",
+    "__EnumValue": "__EnumValue",
+    "__Field": "__Field",
+    "__InputValue": "__InputValue",
+    "__Schema": "__Schema",
+    "__Type": "__Type",
+    "__TypeKind": "__TypeKind",
+    "Asset": "Asset",
+    "AssetBalance": "AssetBalance",
+    "AssetBalancesResponse": "AssetBalancesResponse",
+    "AssetCategory": "AssetCategory",
+    "AssetFilterInput": "AssetFilterInput",
+    "AssetPrice": "AssetPrice",
+    "AssetRequest": "AssetRequest",
+    "AssetUnderlying": "AssetUnderlying",
+    "Boolean": "Boolean",
+    "Chain": "Chain",
+    "ChainDetailed": "ChainDetailed",
+    "Credits": "Credits",
+    "Farm": "Farm",
+    "FarmCategories": "FarmCategories",
+    "Float": "Float",
+    "GetRektsOrder": "GetRektsOrder",
+    "Int": "Int",
+    "Opportunities": "Opportunities",
+    "OpportunitiesFilter": "OpportunitiesFilter",
+    "OpportunitySortField": "OpportunitySortField",
+    "OpportunityStatus": "OpportunityStatus",
+    "OpportunityType": "OpportunityType",
+    "OrderByFields": "OrderByFields",
+    "OrderDirection": "OrderDirection",
+    "Protocol": "Protocol",
+    "ProtocolBalance": "ProtocolBalance",
+    "ProtocolBalanceChain": "ProtocolBalanceChain",
+    "ProtocolBalancePosition": "ProtocolBalancePosition",
+    "ProtocolBalancePositionEntry": "ProtocolBalancePositionEntry",
+    "ProtocolBalanceRequest": "ProtocolBalanceRequest",
+    "ProtocolBalanceToken": "ProtocolBalanceToken",
+    "ProtocolFeature": "ProtocolFeature",
+    "ProtocolFeatureEnum": "ProtocolFeatureEnum",
+    "Query": "Query",
+    "Rekt": "Rekt",
+    "RektToken": "RektToken",
+    "Shield": "Shield",
+    "ShieldIssue": "ShieldIssue",
+    "ShieldTag": "ShieldTag",
+    "ShieldToken": "ShieldToken",
+    "ShieldVersion": "ShieldVersion",
+    "Sort": "Sort",
+    "String": "String",
+    "Timestamp": "Timestamp",
+    "Token": "Token",
+    "TokenCategorization": "TokenCategorization"
+    }
+}

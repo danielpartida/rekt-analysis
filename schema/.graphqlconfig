@@ -1,0 +1,15 @@
+{
+  "name": "Untitled GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "https://public-api.defiyield.app/",
+        "headers": {
+          "X-Api-Key": "bad7014e-3fd4-473a-b981-1a5c2dd2d72e"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

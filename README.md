@@ -15,7 +15,9 @@ Analysis of Rekt Database from DeFi Yield App
 - Start general
 - In which platform / chain do we find the biggest scams?
 - What is the main category of exploits? NFTs, Exchange, Metaverse, Token, Bridge?
-- What is the main type of exploit? Scam, explot or hack?
+- What is the main type of exploit? Scam, exploit or hack?
+- Funds lost over time?
+- Visualize the rekt of the month
 - How does the coin evolve after a scam?
 - Which are the platforms that are the most secure & insecure?
 - Distribution how often platforms are scammed
