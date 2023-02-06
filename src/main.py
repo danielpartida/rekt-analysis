@@ -74,14 +74,24 @@ def get_all_rekts(client: Client, limit: int = 100) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    # Execute the query on the transport
+    # 0. Create GraphQL query to fetch rekts
     gql_client = get_graphql_client()
 
     chains_response = execute_gql_query(client=gql_client, query=q.query_get_chain_ids)
     chains_list = chains_response['chains']
 
+    # 1. Fetch rekts data and transform the data to DataFrame
     df_rekts = get_all_rekts(client=gql_client, limit=1000)
+
+    # 2. Compute key statistics
+    issue_type_count = df_rekts.groupby(['issueType']).size()
+    category_count = df_rekts.groupby(['category']).size()
+
+    # 3. Plot insights
     fig = px.scatter(df_rekts, x="date", y="fundsLost", size="fundsLost", color="issueType", hover_name="category",
-                     log_y=True, title='Log-plot funds lost over time')
+                     marginal_x='box', log_y=True, title='Log-plot funds lost over time')
     fig.show()
+
+    # fig.write_html('log_plot_funds_lost_over_time_hist.png')
+
     print(df_rekts)

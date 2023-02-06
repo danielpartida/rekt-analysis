@@ -1,6 +1,25 @@
 # rekt-analysis
 Analysis of Rekt Database from DeFi Yield App
 
+This repository contains the analysis the major web3 rekts. The code is implemented under the src/ directory.
+Under the src/ directory, a Streamlit dashboard is implemented at src/app to visualize key insights. 
+The data is fetched and processed at src/main.py. Inside the img/ directory, some plots are saved to visualize insights.
+The repository has the following structure
+```
+project
+│   README.md
+│   requirements.txt
+│
+└───img
+│   │ figure_1.png  
+│   │  ...
+│   │ figure_n.png
+└───src
+    │   app.py
+    │   main.py
+    │   queries.py
+```
+
 ## Sources
 - [DeFiYield API docs](https://docs.defiyield.app/api/api#authentication)
 - [Rekt Database docs](https://docs.defiyield.app/audits/rekt-database)
@@ -21,16 +40,19 @@ Several images displaying findings and results are saved under the img/ folder
 ## Instructions to run the script and replicate the results
 - This code uses an API from DeFiYield App to fetch the rekt database. To maintain its privacy, the API key is stored 
 under an .env file. Please add an .env file before executing the code and set your API value to the variable "X-Api-Key"
-- To run the main.py script, install the dependencies in the requirements.txt file
-- The queries should be made on the link https://public-api.defiyield.app/
-- To test queries, use the DeFiYield [playground](https://public-api.defiyield.app/graphql/)
+- The working directory is the parent directory
+- The queries are made on the link https://public-api.defiyield.app/
+- To test other queries, use the DeFiYield [playground](https://public-api.defiyield.app/graphql/)
+- To run the main.py script, install the dependencies in the requirements.txt file, then run src/main.py
+- To run the Streamlit app, write in the command line "streamlit run src/app.py"
 
 ## Ideas to implement
 - Start general
+  - Do analysis for category and for type of issue
   - In which platform / chain do we find the biggest scams?
   - What is the main category of exploits? NFTs, Exchange, Metaverse, Token, Bridge?
   - What is the main type of exploit? Scam, exploit or hack?
-  - Funds lost over time?
+  - Funds lost over time (year by year)?
   - Ratio of lost and recovered funds
   - Which are the platforms that are the most secure & insecure?
   - How costly is every scam?
@@ -47,3 +69,4 @@ Available fields:id, projectName,description, data, fundsLost, fundsReturned, ch
 
 ## Future work
 - Do a Dash or Streamlit App that visualizes all results
+- Add text search for searching specific rekt in database

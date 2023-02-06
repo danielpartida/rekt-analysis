@@ -3,3 +3,4 @@ python-dotenv
 pandas
 plotly
 kaleido
+streamlit
