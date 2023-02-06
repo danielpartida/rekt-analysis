@@ -24,6 +24,7 @@ Analysis of Rekt Database from DeFi Yield App
 - How costly is every scam?
 - Ratio of lost and recovered funds
 - Check with NLP details of exploit, for example keywords or topics
+- Run with Prophet to analyze seasonality
 
 ## Rekt endpoint
 Paginated data about all hacks and exploits in [Rekt Database](https://docs.defiyield.app/audits/rekt-database).
