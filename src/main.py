@@ -39,8 +39,29 @@ def execute_gql_query(client: Client, query: str):
     return gql_response
 
 
-def get_all_rekts(client: Client):
-    pass
+def get_all_rekts(client: Client, limit: int = 100) -> pd.DataFrame:
+    """
+    Fetches the top rekts by funds. If no limit is given, the first 100 are fetched
+    :param limit: Upper limit to fetch for rekts
+    :param client: GraphQL client
+    :return: pandas DataFrame
+    """
+    page_size = 50
+    number_of_loops = int(limit/page_size)
+    list_rekts = []
+    for i in range(1, number_of_loops+1):
+        rekt_query = q.get_rekt_query(page_number=i, page_size=page_size)
+        rekts_response = execute_gql_query(client=client, query=rekt_query)
+        df_rekts = pd.DataFrame(data=rekts_response['rekts'])
+        df_rekts.set_index(df_rekts.id, inplace=True)
+        df_rekts.drop(columns=['id'], inplace=True)
+        df_rekts.date = pd.to_datetime(df_rekts.date)
+        df_rekts.sort_values(by=['date'], inplace=True)
+        list_rekts.append(df_rekts)
+
+    all_rekts = pd.concat(list_rekts)
+
+    return all_rekts
 
 
 if __name__ == "__main__":
@@ -50,11 +71,5 @@ if __name__ == "__main__":
     chains_response = execute_gql_query(client=gql_client, query=q.query_get_chain_ids)
     chains_list = chains_response['chains']
 
-    rekt_query = q.get_rekt_query(page_number=1, page_size=50)
-    rekts_response = execute_gql_query(client=gql_client, query=rekt_query)
-    df_rekts = pd.DataFrame(data=rekts_response['rekts'])
-    df_rekts.set_index(df_rekts.id, inplace=True)
-    df_rekts.drop(columns=['id'], inplace=True)
-    df_rekts.date = pd.to_datetime(df_rekts.date)
-    df_rekts.sort_values(by=['date'], inplace=True)
+    df_rekts = get_all_rekts(client=gql_client, limit=150)
     print(df_rekts)
