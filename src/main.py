@@ -52,15 +52,21 @@ def get_all_rekts(client: Client, limit: int = 100) -> pd.DataFrame:
     number_of_loops = int(limit/page_size)
     list_rekts = []
     for i in range(1, number_of_loops+1):
+        # Fetch data with GraphQL
         rekt_query = q.get_rekt_query(page_number=i, page_size=page_size)
         rekts_response = execute_gql_query(client=client, query=rekt_query)
+
+        # Transform data to DataFrame
         df_rekts = pd.DataFrame(data=rekts_response['rekts'])
         df_rekts.set_index(df_rekts.id, inplace=True)
         df_rekts.drop(columns=['id'], inplace=True)
         df_rekts.date = pd.to_datetime(df_rekts.date)
         df_rekts.sort_values(by=['date'], inplace=True)
+
+        # Append current DataFrame to list of all DataFrames
         list_rekts.append(df_rekts)
 
+    # Concat list of DataFrames into single combined DataFrame
     all_rekts = pd.concat(list_rekts)
     all_rekts[['fundsLost', 'fundsReturned']] = all_rekts[['fundsLost', 'fundsReturned']].apply(pd.to_numeric)
 
@@ -74,7 +80,8 @@ if __name__ == "__main__":
     chains_response = execute_gql_query(client=gql_client, query=q.query_get_chain_ids)
     chains_list = chains_response['chains']
 
-    df_rekts = get_all_rekts(client=gql_client, limit=150)
-    fig = px.scatter(df_rekts, x="date", y="fundsLost", size="fundsReturned", color="category", hover_name="category")
+    df_rekts = get_all_rekts(client=gql_client, limit=1000)
+    fig = px.scatter(df_rekts, x="date", y="fundsLost", size="fundsLost", color="issueType", hover_name="category",
+                     log_y=True, title='Log-plot funds lost over time')
     fig.show()
     print(df_rekts)
