@@ -56,14 +56,12 @@ under an .env file. Please add an .env file before executing the code and set yo
 
 ## Ideas to implement
 - Start general
-  - Do analysis for category and for type of issue
-  - Do analysis for token and chain -> in which chain do we find the biggest scams?
+  - ~~Do analysis for category and for type of issue~~
+  - Do analysis for token and chain -> in which chain and tokens do we find the biggest scams?
   - ~~What is the main category of exploits?~~
   - ~~What is the main type of exploit?~~
   - ~~Funds lost over time (year by year)?~~
   - ~~Ratio of lost and recovered funds~~
-  - Which are the platforms that are the most secure & insecure?
-  - Distribution how often platforms are scammed
 - Check with NLP details of exploit, for example keywords or topics
 - ~~Deploy app to Heroku!!!~~
 
@@ -72,10 +70,10 @@ Paginated data about all hacks and exploits in [Rekt Database](https://docs.defi
 Available fields:id, projectName,description, data, fundsLost, fundsReturned, chainIds, category, issueType, token 
 
 ## Future work
-The following points are ideas on how to improve the current implementation
+The following points are ideas on how to expand the current rekt analysis and continue the implementation
 - Improve the performance of the Streamlit app. Another alternative is creating a Dash application where the render is
 more performant
-- Add text search for searching specific rekt in database
-- Analyze how a project token evolve after a scam. Analyze how costly is every scam for the ecosystem.
 - Run seasonality analysis with [Prophet](https://facebook.github.io/prophet/docs/quick_start.html)
-- Expand dashboard enabling further granular analysis on rekt category, issue type, token, chain and token
+- Expand dashboard enabling further granular analysis on chain and token
+- Analyze how a project token evolve after a scam. Analyze how costly is every scam for the ecosystem.
+- Add text search for searching specific rekt in database
