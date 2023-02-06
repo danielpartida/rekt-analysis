@@ -1,10 +1,12 @@
 import os
 
 import pandas as pd
-import queries as q
+import plotly.express as px
+from dotenv import load_dotenv
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
-from dotenv import load_dotenv
+
+import queries as q
 
 
 def get_graphql_client(endpoint: str = "https://public-api.defiyield.app/graphql/") -> Client:
@@ -60,6 +62,7 @@ def get_all_rekts(client: Client, limit: int = 100) -> pd.DataFrame:
         list_rekts.append(df_rekts)
 
     all_rekts = pd.concat(list_rekts)
+    all_rekts[['fundsLost', 'fundsReturned']] = all_rekts[['fundsLost', 'fundsReturned']].apply(pd.to_numeric)
 
     return all_rekts
 
@@ -72,4 +75,6 @@ if __name__ == "__main__":
     chains_list = chains_response['chains']
 
     df_rekts = get_all_rekts(client=gql_client, limit=150)
+    fig = px.scatter(df_rekts, x="date", y="fundsLost", size="fundsReturned", color="category", hover_name="category")
+    fig.show()
     print(df_rekts)

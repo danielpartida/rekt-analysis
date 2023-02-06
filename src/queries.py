@@ -30,6 +30,13 @@ query {
 
 
 def get_rekt_query(page_number: int = 1, page_size: int = 50) -> str:
+    """
+    Dynamically fetches rekts based on page_number and page_size. If no parameters are given, page_number starts at 1,
+    and page_size is 50
+    :param page_number: int
+    :param page_size:  int
+    :return: str rekt query
+    """
     rekt_query = '''
     query {
       rekts(
