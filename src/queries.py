@@ -1,4 +1,16 @@
-test_query = """
+query_get_chain_ids = """
+query {
+  chains {
+    id
+    absoluteChainId
+    abbr
+    name
+    type
+  }
+}
+"""
+
+search_query = """
 query {
   rekts(
     pageNumber:1
