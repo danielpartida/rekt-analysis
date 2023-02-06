@@ -1,16 +1,22 @@
+import os
+
 import queries as q
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
+from dotenv import load_dotenv
 
 
 def get_graphql_client(endpoint: str = "https://public-api.defiyield.app/graphql/") -> Client:
     """
     Creates GraphQL client, if no endpoint is provided, the DeFiYield App endpoint is used
+    API keys are fetched from the .env file. To get a pair of API keys contact https://defiyield.app/
     :param endpoint: str
     :return: gql.Client
     """
-    # Set transport with DefiYield url endpoint
-    headers = {"X-Api-Key": "bad7014e-3fd4-473a-b981-1a5c2dd2d72e"}
+    # Set transport with DeFiYield url endpoint
+    load_dotenv()
+    api_key = os.getenv("X-Api-Key")
+    headers = {"X-Api-Key": api_key}
     transport = AIOHTTPTransport(url=endpoint, headers=headers)
 
     # Create a GraphQL client using the defined transport
