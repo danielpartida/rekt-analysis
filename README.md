@@ -1,7 +1,8 @@
 # rekt-analysis
 Analysis of Rekt Database from DeFi Yield App
 
-The Streamlit app can be found under this [link](www.google.com) Pending deployment!!!
+The Streamlit app can be found under this [link](www.google.com) Pending deployment!!! The application takes approx 30
+seconds to pull the data from the DeFiYield App and render the key insights
 
 This repository contains the analysis the major web3 rekts. The code is implemented under the src/ directory.
 Under the src/ directory, a Streamlit dashboard is implemented at src/app to visualize key insights. 
@@ -67,6 +68,8 @@ Paginated data about all hacks and exploits in [Rekt Database](https://docs.defi
 Available fields:id, projectName,description, data, fundsLost, fundsReturned, chainIds, category, issueType, token 
 
 ## Future work
+- Improve the performance of the Streamlit app. Another alternative is creating a Dash application where the render is
+more performant
 - Add text search for searching specific rekt in database
 - Analyze how a project token evolve after a scam. Analyze how costly is every scam for the ecosystem.
 - Visualize the rekt of the month

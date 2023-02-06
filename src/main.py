@@ -74,7 +74,19 @@ def get_all_rekts(client: Client, limit: int = 100) -> pd.DataFrame:
     return all_rekts
 
 
-def run_main(show_plots: bool = False, save_plots: bool = False) -> Tuple:
+def get_count_statistics(series_with_count: pd.Series) -> Tuple:
+    """
+    Calculates count statistics for a given series
+    :param series_with_count: pd.Series to calculate count statistics
+    :return: Tuple
+    """
+    main_count = series_with_count.idxmax()
+    max_count_percentage = round(max(series_with_count) / series_with_count.sum(), 2)
+
+    return main_count, max_count_percentage
+
+
+def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = False) -> Tuple:
     """
     Main execution method. It follows 4 steps.
     1. Creates a GraphQL query for the Rekt database of DeFiYield App
@@ -91,7 +103,7 @@ def run_main(show_plots: bool = False, save_plots: bool = False) -> Tuple:
     chains_list = chains_response['chains']
 
     # 2. Fetch rekts data and transform the data to DataFrame
-    df_rekts = get_all_rekts(client=gql_client, limit=1000)
+    df_rekts = get_all_rekts(client=gql_client, limit=limit)
 
     # 3. Compute key statistics
     issue_type_count = df_rekts.groupby(['issueType']).size()
@@ -111,5 +123,5 @@ def run_main(show_plots: bool = False, save_plots: bool = False) -> Tuple:
 
 
 if __name__ == "__main__":
-    df, issue_count, category_count = run_main(show_plots=True, save_plots=False)
+    df, issue_count, category_count = run_main(limit=100, show_plots=True, save_plots=False)
     print(df)
