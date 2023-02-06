@@ -97,8 +97,6 @@ def get_plots(df: pd.DataFrame) -> Tuple:
         title='Interactive log-plot category funds lost over time'
     )
 
-    fig_line = px.line()
-
     return fig_scatter_issue, fig_scatter_category
 
 
@@ -129,6 +127,7 @@ def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = Fal
     year_count = df_copy.groupby(pd.Grouper(freq='Y')).size()
 
     # 4. Plot insights
+    # TODO: Add all plots
     fig_scatter = get_plots(df=df_rekts)
 
     if show_plots:

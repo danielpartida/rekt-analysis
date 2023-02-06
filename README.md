@@ -26,7 +26,7 @@ project
 ```
 
 ## Sources
-- [DeFiYield API docs](https://docs.defiyield.app/api/api#authentication)
+- [DeFiYield API docs](https://docs.defiyield.app/api/api)
 - [Rekt Database docs](https://docs.defiyield.app/audits/rekt-database)
 - [Rekt Database app](https://defiyield.app/rekt-database)
 
@@ -37,10 +37,13 @@ However, I decided to focus just on the largest 1000 rekts to avoid exploiting t
 by passing a larger limit to the get_all_rekts() method implemented under the main.py file. 
 
 ### Result images
+**Saving images pending!!!**
+
 Several images displaying findings and results are saved under the img/ folder
 
 ### Key insights
-- The more common rekt is
+**Writing pending!!!**
+- The more common rekt is...
 
 ## Instructions to run the script and replicate the results
 - This code uses an API from DeFiYield App to fetch the rekt database. To maintain its privacy, the API key is stored 
@@ -54,9 +57,9 @@ under an .env file. Please add an .env file before executing the code and set yo
 ## Ideas to implement
 - Start general
   - Do analysis for category and for type of issue
-  - In which platform / chain do we find the biggest scams?
-  - What is the main category of exploits? NFTs, Exchange, Metaverse, Token, Bridge?
-  - What is the main type of exploit? Scam, exploit or hack?
+  - Do analysis for token and chain -> in which chain do we find the biggest scams?
+  - ~~What is the main category of exploits?~~
+  - ~~What is the main type of exploit?~~
   - Funds lost over time (year by year)?
   - Ratio of lost and recovered funds
   - Which are the platforms that are the most secure & insecure?
@@ -69,6 +72,7 @@ Paginated data about all hacks and exploits in [Rekt Database](https://docs.defi
 Available fields:id, projectName,description, data, fundsLost, fundsReturned, chainIds, category, issueType, token 
 
 ## Future work
+The following points are ideas on how to improve the current implementation
 - Improve the performance of the Streamlit app. Another alternative is creating a Dash application where the render is
 more performant
 - Add text search for searching specific rekt in database
