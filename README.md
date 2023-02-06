@@ -1,7 +1,7 @@
 # rekt-analysis
 Analysis of Rekt Database from DeFi Yield App
 
-The Streamlit app can be found under this [link](www.google.com) Pending deployment!!! The application takes approx 30
+The Streamlit app can be found under this [link](https://intense-brook-89215.herokuapp.com/) Pending deployment!!! The application takes approx 30
 seconds to pull the data from the DeFiYield App and render the key insights
 
 This repository contains the analysis the major web3 rekts. The code is implemented under the src/ directory.
@@ -12,6 +12,8 @@ The repository has the following structure
 project
 │   README.md
 │   requirements.txt
+│   Procfile
+│   setup.sh
 │
 └───img
 │   │ figure_1.png  
@@ -61,7 +63,7 @@ under an .env file. Please add an .env file before executing the code and set yo
   - Distribution how often platforms are scammed
 - Check with NLP details of exploit, for example keywords or topics
 - Run with Prophet to analyze seasonality
-- Deploy app to Heroku!!!
+- ~~Deploy app to Heroku!!!~~
 
 ## Rekt endpoint
 Paginated data about all hacks and exploits in [Rekt Database](https://docs.defiyield.app/audits/rekt-database).
