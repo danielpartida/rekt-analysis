@@ -86,6 +86,22 @@ def get_count_statistics(series_with_count: pd.Series) -> Tuple:
     return main_count, max_count_percentage
 
 
+def get_plots(df: pd.DataFrame) -> Tuple:
+    fig_scatter_issue = px.scatter(
+        df, x="date", y="fundsLost", size="fundsLost", color="issueType", hover_name="issueType", log_y=True,
+        title='Interactive log-plot issue type funds lost over time'
+    )
+
+    fig_scatter_category = px.scatter(
+        df, x="date", y="fundsLost", size="fundsLost", color="category", hover_name="category", log_y=True,
+        title='Interactive log-plot category funds lost over time'
+    )
+
+    fig_line = px.line()
+
+    return fig_scatter_issue, fig_scatter_category
+
+
 def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = False) -> Tuple:
     """
     Main execution method. It follows 4 steps.
@@ -113,14 +129,13 @@ def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = Fal
     year_count = df_copy.groupby(pd.Grouper(freq='Y')).size()
 
     # 4. Plot insights
-    fig = px.scatter(df_rekts, x="date", y="fundsLost", size="fundsLost", color="issueType", hover_name="category",
-                     marginal_x='box', log_y=True, title='Log-plot funds lost over time')
+    fig_scatter = get_plots(df=df_rekts)
 
     if show_plots:
-        fig.show()
+        fig_scatter.show()
 
     if save_plots:
-        fig.write_html('log_plot_funds_lost_over_time_hist.png')
+        fig_scatter.write_html('log_plot_funds_lost_over_time_hist.png')
 
     return df_rekts, issue_type_count, category_count, year_count
 
