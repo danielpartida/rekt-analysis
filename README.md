@@ -62,7 +62,6 @@ under an .env file. Please add an .env file before executing the code and set yo
   - Which are the platforms that are the most secure & insecure?
   - Distribution how often platforms are scammed
 - Check with NLP details of exploit, for example keywords or topics
-- Run with Prophet to analyze seasonality
 - ~~Deploy app to Heroku!!!~~
 
 ## Rekt endpoint
@@ -74,4 +73,5 @@ Available fields:id, projectName,description, data, fundsLost, fundsReturned, ch
 more performant
 - Add text search for searching specific rekt in database
 - Analyze how a project token evolve after a scam. Analyze how costly is every scam for the ecosystem.
-- Visualize the rekt of the month
+- Run seasonality analysis with [Prophet](https://facebook.github.io/prophet/docs/quick_start.html)
+- Expand dashboard enabling further granular analysis on rekt category, issue type, token, chain and token

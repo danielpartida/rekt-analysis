@@ -105,10 +105,12 @@ def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = Fal
 
     # 2. Fetch rekts data and transform the data to DataFrame
     df_rekts = get_all_rekts(client=gql_client, limit=limit)
+    df_copy = df_rekts.set_index('date')
 
     # 3. Compute key statistics
     issue_type_count = df_rekts.groupby(['issueType']).size()
     category_count = df_rekts.groupby(['category']).size()
+    year_count = df_copy.groupby(pd.Grouper(freq='Y')).size()
 
     # 4. Plot insights
     fig = px.scatter(df_rekts, x="date", y="fundsLost", size="fundsLost", color="issueType", hover_name="category",
@@ -120,9 +122,9 @@ def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = Fal
     if save_plots:
         fig.write_html('log_plot_funds_lost_over_time_hist.png')
 
-    return df_rekts, issue_type_count, category_count
+    return df_rekts, issue_type_count, category_count, year_count
 
 
 if __name__ == "__main__":
-    df, issue_count, category_count = run_main(limit=100, show_plots=True, save_plots=False)
+    df, issue_count, category_count, month_count, year_count = run_main(limit=100, show_plots=True, save_plots=False)
     print(df)
