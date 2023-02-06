@@ -81,7 +81,7 @@ def get_count_statistics(series_with_count: pd.Series) -> Tuple:
     :return: Tuple
     """
     main_count = series_with_count.idxmax()
-    max_count_percentage = round(max(series_with_count) / series_with_count.sum(), 2)
+    max_count_percentage = round(max(series_with_count) / series_with_count.sum(), 4)
 
     return main_count, max_count_percentage
 
@@ -93,6 +93,7 @@ def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = Fal
     2. It fetches the rekt data and process the data
     3. It computes key metrics
     4. It plots key insights, displays the plots and saves the plots if parameter save_plots is True
+    :param limit: Limit of rekts to fetch
     :param save_plots: bool, default value is False
     :return: Tuple
     """
