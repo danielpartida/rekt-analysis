@@ -123,8 +123,15 @@ def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = Fal
 
     # 3. Compute key statistics
     issue_type_count = df_rekts.groupby(['issueType']).size()
+    issue_type_mean = df_rekts.groupby(['issueType']).mean()
     category_count = df_rekts.groupby(['category']).size()
+    category_mean = df_rekts.groupby(['category']).mean()
     year_count = df_copy.groupby(pd.Grouper(freq='Y')).size()
+
+    # TODO: Do granular analysis with categories and issue type per year
+    #  https://stackoverflow.com/questions/35898667/group-by-time-and-other-column-in-pandas
+    # year_count_category = df_copy.groupby([pd.Grouper(freq='Y'), 'category']).size()
+    # year_count_issue = df_copy.groupby([pd.Grouper(freq='Y'), 'issueType']).size()
 
     # 4. Plot insights
     # TODO: Add all plots
@@ -136,7 +143,7 @@ def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = Fal
     if save_plots:
         fig_scatter.write_html('log_plot_funds_lost_over_time_hist.png')
 
-    return df_rekts, issue_type_count, category_count, year_count
+    return df_rekts, issue_type_count, issue_type_mean, category_count, category_mean, year_count
 
 
 if __name__ == "__main__":

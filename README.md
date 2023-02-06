@@ -60,8 +60,8 @@ under an .env file. Please add an .env file before executing the code and set yo
   - Do analysis for token and chain -> in which chain do we find the biggest scams?
   - ~~What is the main category of exploits?~~
   - ~~What is the main type of exploit?~~
-  - Funds lost over time (year by year)?
-  - Ratio of lost and recovered funds
+  - ~~Funds lost over time (year by year)?~~
+  - ~~Ratio of lost and recovered funds~~
   - Which are the platforms that are the most secure & insecure?
   - Distribution how often platforms are scammed
 - Check with NLP details of exploit, for example keywords or topics
