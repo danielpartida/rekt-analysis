@@ -1,4 +1,5 @@
 import os
+from typing import Tuple
 
 import pandas as pd
 import plotly.express as px
@@ -73,25 +74,42 @@ def get_all_rekts(client: Client, limit: int = 100) -> pd.DataFrame:
     return all_rekts
 
 
-if __name__ == "__main__":
-    # 0. Create GraphQL query to fetch rekts
+def run_main(show_plots: bool = False, save_plots: bool = False) -> Tuple:
+    """
+    Main execution method. It follows 4 steps.
+    1. Creates a GraphQL query for the Rekt database of DeFiYield App
+    2. It fetches the rekt data and process the data
+    3. It computes key metrics
+    4. It plots key insights, displays the plots and saves the plots if parameter save_plots is True
+    :param save_plots: bool, default value is False
+    :return: Tuple
+    """
+    # 1. Create GraphQL query to fetch rekts
     gql_client = get_graphql_client()
 
     chains_response = execute_gql_query(client=gql_client, query=q.query_get_chain_ids)
     chains_list = chains_response['chains']
 
-    # 1. Fetch rekts data and transform the data to DataFrame
+    # 2. Fetch rekts data and transform the data to DataFrame
     df_rekts = get_all_rekts(client=gql_client, limit=1000)
 
-    # 2. Compute key statistics
+    # 3. Compute key statistics
     issue_type_count = df_rekts.groupby(['issueType']).size()
     category_count = df_rekts.groupby(['category']).size()
 
-    # 3. Plot insights
+    # 4. Plot insights
     fig = px.scatter(df_rekts, x="date", y="fundsLost", size="fundsLost", color="issueType", hover_name="category",
                      marginal_x='box', log_y=True, title='Log-plot funds lost over time')
-    fig.show()
 
-    # fig.write_html('log_plot_funds_lost_over_time_hist.png')
+    if show_plots:
+        fig.show()
 
-    print(df_rekts)
+    if save_plots:
+        fig.write_html('log_plot_funds_lost_over_time_hist.png')
+
+    return df_rekts, issue_type_count, category_count
+
+
+if __name__ == "__main__":
+    df, issue_count, category_count = run_main(show_plots=True, save_plots=False)
+    print(df)

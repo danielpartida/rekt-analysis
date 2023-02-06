@@ -1,6 +1,8 @@
 # rekt-analysis
 Analysis of Rekt Database from DeFi Yield App
 
+The Streamlit app can be found under this [link](www.google.com) Pending deployment!!!
+
 This repository contains the analysis the major web3 rekts. The code is implemented under the src/ directory.
 Under the src/ directory, a Streamlit dashboard is implemented at src/app to visualize key insights. 
 The data is fetched and processed at src/main.py. Inside the img/ directory, some plots are saved to visualize insights.
@@ -55,18 +57,16 @@ under an .env file. Please add an .env file before executing the code and set yo
   - Funds lost over time (year by year)?
   - Ratio of lost and recovered funds
   - Which are the platforms that are the most secure & insecure?
-  - How costly is every scam?
   - Distribution how often platforms are scammed
 - Check with NLP details of exploit, for example keywords or topics
 - Run with Prophet to analyze seasonality
-- Create Dash or Streamlit application
-- Visualize the rekt of the month
-- How does the coin evolve after a scam?
+- Deploy app to Heroku!!!
 
 ## Rekt endpoint
 Paginated data about all hacks and exploits in [Rekt Database](https://docs.defiyield.app/audits/rekt-database).
 Available fields:id, projectName,description, data, fundsLost, fundsReturned, chainIds, category, issueType, token 
 
 ## Future work
-- Do a Dash or Streamlit App that visualizes all results
 - Add text search for searching specific rekt in database
+- Analyze how a project token evolve after a scam. Analyze how costly is every scam for the ecosystem.
+- Visualize the rekt of the month
