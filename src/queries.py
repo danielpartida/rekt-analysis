@@ -10,7 +10,7 @@ query {
 }
 """
 
-search_query = """
+search_rekt_query = """
 query {
   rekts(
     pageNumber:1
@@ -28,24 +28,31 @@ query {
 }
 """
 
-longer_query = """
-query {
-  rekts(
-    pageNumber:1
-    pageSize:10
-    orderBy: {
-      fundsLost: desc
+
+def get_rekt_query(page_number: int = 1, page_size: int = 50) -> str:
+    rekt_query = '''
+    query {
+      rekts(
+        pageNumber: %s
+        pageSize: %s
+        orderBy: {
+            fundsLost: desc
+        }
+      ) {
+        id
+        projectName
+        description
+        date
+        fundsLost
+        fundsReturned
+        chaindIds
+        category
+        issueType
+        token {
+            name
+        }
+      }
     }
-  ) {
-    id
-    projectName
-    description
-    fundsLost
-    fundsReturned
-    category
-    token {
-      name
-    }
-  }
-}
-"""
+    ''' % (page_number, page_size)
+
+    return rekt_query
