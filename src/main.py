@@ -144,4 +144,5 @@ def run_main(limit: int = 1000, show_plots: bool = False) -> Tuple:
 
 if __name__ == "__main__":
     df, issue_count, issue_type_mean, category_count, category_mean, year_count = run_main(limit=100, show_plots=True)
-    print(df)
+    year_count = pd.DataFrame(year_count, columns=['count'])
+    print(max(year_count))

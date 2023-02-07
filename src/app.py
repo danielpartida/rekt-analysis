@@ -30,7 +30,7 @@ col1, col2 = st.columns(2)
 col1.metric("Average  lost funds per rekt in $", "{0:,}".format(lost_returned_mean[0]))
 col2.metric("Average returned funds after a rekt occurred in $", "{0:,}".format(lost_returned_mean[1]))
 
-st.subheader("Rekts have an increasing trend peaking in {0}".format(main_year))
+st.subheader("Rekts have an increasing trend peaking at {0} occurrences in {1}".format(year_count.max(), main_year))
 st.line_chart(df_year_count)
 
 fig_scatter_issue, fig_scatter_category = get_plots(df=df_rekts)

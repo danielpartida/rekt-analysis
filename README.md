@@ -30,6 +30,8 @@ project
 - [Rekt Database docs](https://docs.defiyield.app/audits/rekt-database)
 - [Rekt Database app](https://defiyield.app/rekt-database)
 
+Available fields from Rekt database are: id, projectName,description, data, fundsLost, fundsReturned, chainIds, category, issueType, token
+
 ## Findings
 ### Note on number of rekts analyzed
 I ran a rekt analysis with the 1000 rekts where the largest funds where lost. Some rekts are missing for this analysis.
@@ -71,10 +73,6 @@ under an .env file. Please add an .env file before executing the code and set yo
   - Do analysis for token and chain -> in which chain and tokens do we find the biggest scams?
 - Run NLP task to analyze details of exploit, for example keywords or topics
 - ~~Deploy app to Heroku!!!~~
-
-## Rekt endpoint
-Paginated data about all hacks and exploits in [Rekt Database](https://docs.defiyield.app/audits/rekt-database).
-Available fields:id, projectName,description, data, fundsLost, fundsReturned, chainIds, category, issueType, token 
 
 ## Future work
 The following points are ideas on how to expand the current rekt analysis and continue the implementation
