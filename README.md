@@ -1,10 +1,10 @@
 # rekt-analysis
 Analysis of Rekt Database from DeFi Yield App
 
-The Streamlit app can be found under this [link](https://intense-brook-89215.herokuapp.com/) Pending deployment!!! The application takes approx 30
-seconds to pull the data from the DeFiYield App and render the key insights
+The Streamlit app can be found under this [link](https://intense-brook-89215.herokuapp.com/). The application takes approx 
+1min to pull the data from the DeFiYield App and render the key insights
 
-This repository contains the analysis the major web3 rekts. The code is implemented under the src/ directory.
+This repository contains the analysis of the major web3 rekts. The code is implemented under the src/ directory.
 Under the src/ directory, a Streamlit dashboard is implemented at src/app to visualize key insights. 
 The data is fetched and processed at src/main.py. Inside the img/ directory, some plots are saved to visualize insights.
 The repository has the following structure
@@ -57,12 +57,12 @@ under an .env file. Please add an .env file before executing the code and set yo
 ## Ideas to implement
 - Start general
   - ~~Do analysis for category and for type of issue~~
-  - Do analysis for token and chain -> in which chain and tokens do we find the biggest scams?
   - ~~What is the main category of exploits?~~
   - ~~What is the main type of exploit?~~
   - ~~Funds lost over time (year by year)?~~
   - ~~Ratio of lost and recovered funds~~
-- Check with NLP details of exploit, for example keywords or topics
+  - Do analysis for token and chain -> in which chain and tokens do we find the biggest scams?
+- Run NLP task to analyze details of exploit, for example keywords or topics
 - ~~Deploy app to Heroku!!!~~
 
 ## Rekt endpoint

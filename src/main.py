@@ -100,7 +100,7 @@ def get_plots(df: pd.DataFrame) -> Tuple:
     return fig_scatter_issue, fig_scatter_category
 
 
-def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = False) -> Tuple:
+def run_main(limit: int = 1000, show_plots: bool = False) -> Tuple:
     """
     Main execution method. It follows 4 steps.
     1. Creates a GraphQL query for the Rekt database of DeFiYield App
@@ -108,7 +108,6 @@ def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = Fal
     3. It computes key metrics
     4. It plots key insights, displays the plots and saves the plots if parameter save_plots is True
     :param limit: Limit of rekts to fetch
-    :param save_plots: bool, default value is False
     :return: Tuple
     """
     # 1. Create GraphQL query to fetch rekts
@@ -134,18 +133,15 @@ def run_main(limit: int = 1000, show_plots: bool = False, save_plots: bool = Fal
     # year_count_issue = df_copy.groupby([pd.Grouper(freq='Y'), 'issueType']).size()
 
     # 4. Plot insights
-    # TODO: Add all plots
-    fig_scatter = get_plots(df=df_rekts)
+    fig_scatter_issue, fig_scatter_category = get_plots(df=df_rekts)
 
     if show_plots:
-        fig_scatter.show()
-
-    if save_plots:
-        fig_scatter.write_html('log_plot_funds_lost_over_time_hist.png')
+        fig_scatter_issue.show()
+        fig_scatter_category.show()
 
     return df_rekts, issue_type_count, issue_type_mean, category_count, category_mean, year_count
 
 
 if __name__ == "__main__":
-    df, issue_count, category_count, month_count, year_count = run_main(limit=100, show_plots=True, save_plots=False)
+    df, issue_count, issue_type_mean, category_count, category_mean, year_count = run_main(limit=100, show_plots=True)
     print(df)
