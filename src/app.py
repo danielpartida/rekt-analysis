@@ -52,7 +52,6 @@ with tab1:
         (issue_type_mean['fundsReturned'] / issue_type_mean['fundsLost']).idxmax(),
         round(max(issue_type_mean['fundsReturned'] / issue_type_mean['fundsLost']), 2)
     ))
-    st.subheader("The most")
     st.bar_chart(issue_type_mean)
     st.plotly_chart(fig_scatter_issue, use_container_width=True)
 

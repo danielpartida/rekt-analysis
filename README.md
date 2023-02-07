@@ -37,13 +37,20 @@ However, I decided to focus just on the largest 1000 rekts to avoid exploiting t
 by passing a larger limit to the get_all_rekts() method implemented under the main.py file. 
 
 ### Result images
-**Saving images pending!!!**
-
 Several images displaying findings and results are saved under the img/ folder
 
 ### Key insights
-**Writing pending!!!**
-- The more common rekt is...
+These are the insights that I gathered when fetching the 1000 largest rekts on the 7th of February 2023.
+- The average lost of funds per rekt is approx. $74.7M. The average returned funds after occurred is approx. 5.95M
+- Rekts have an increasing trend since 2011 with a peak on 2022
+- The most frequent rekt issue are rugpulls, other issue types, and asset control. However, the most vulnerable issue 
+type are undefined issues "other". A representative example under these undefined issue types is the collapse of the 
+Terra Luna ecosystem where more than 40B dollars where wiped out. Abandoned issue types do not see funds returned durin
+rekts. On the contrary, reentrancy have the largest returned funds with close to 66%
+- The most frequent rekt categories are tokens, centralized finance (CeFi) and decentralized exchanges (DEX). However, 
+the most vulnerable categories are stablecoins and borrowing/lending in CeFi. Borrowing and lending stablecoins from 
+decentralized exchanges do not see funds returned during rekts. On the other hand, there are a high number of undefined
+categories "other" that see 85% of the funds returned after a rekt
 
 ## Instructions to run the script and replicate the results
 - This code uses an API from DeFiYield App to fetch the rekt database. To maintain its privacy, the API key is stored 
