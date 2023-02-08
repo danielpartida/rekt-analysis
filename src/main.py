@@ -42,6 +42,34 @@ def execute_gql_query(client: Client, query: str):
     return gql_response
 
 
+def get_all_rekt_summaries(client: Client, limit: int = 100) -> pd.Series:
+    page_size = 50
+    number_of_loops = int(limit / page_size)
+    list_rekts = []
+    for i in range(1, number_of_loops + 1):
+        # Fetch data with GraphQL
+        rekt_description_query = q.get_rekt_description_query(page_number=i, page_size=page_size)
+        rekts_response = execute_gql_query(client=client, query=rekt_description_query)
+
+        # Transform data to DataFrame
+        df_rekt_descriptions = pd.DataFrame(data=rekts_response['rekts'])
+        df_rekt_descriptions.set_index(df_rekt_descriptions.id, inplace=True)
+        df_rekt_descriptions.drop(columns=['id'], inplace=True)
+
+        # Append current DataFrame to list of all DataFrames
+        list_rekts.append(df_rekt_descriptions)
+
+    # Concat list of DataFrames into single combined DataFrame
+    all_rekt_description = pd.concat(list_rekts)
+
+    # Process text and fetch only rekt summaries
+    condition = '<p><strong>Quick Summary</strong></p><p>'
+    first_slice = all_rekt_description.description.apply(lambda x: x.split(condition)[1] if condition in x else x.split('<p>')[1])
+    summaries = first_slice.apply(lambda x: x.split('.&nbsp;</p>')[0])
+
+    return summaries
+
+
 def get_all_rekts(client: Client, limit: int = 100) -> pd.DataFrame:
     """
     Fetches the top rekts by funds. If no limit is given, the first 100 are fetched
