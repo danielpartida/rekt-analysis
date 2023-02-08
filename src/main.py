@@ -50,7 +50,9 @@ def match_similar_categories(df: pd.DataFrame) -> pd.DataFrame:
     :return: pd.DataFrame matched
     """
     from_list = list(df.category.unique())
-    from_list.remove(None)
+    if None in from_list:
+        from_list.remove(None)
+
     to_list = ['Other', 'CeFi', 'Borrowing and Lending', 'Yield Aggregator', 'Gaming / Metaverse', 'Bridge',
                'Stablecoin', 'Exchange (DEX)', 'Token', 'Borrowing and Lending', 'NFT']
     model = PolyFuzz("TF-IDF").match(from_list, to_list)
@@ -67,10 +69,13 @@ def map_categories(df: pd.DataFrame, matched_categories: pd.DataFrame):
     :return: pd.DataFrame with matched parent category
     """
     categories = list(df.category.unique())
-    categories = filter(None)
+    if None in categories:
+        categories.remove(None)
+
+    df['upper_category'] = None
     for category in categories:
         filter = category == df['category']
-        df['matched_category'][filter]= matched_categories[matched_categories.From == category].To.values[0]
+        df['upper_category'][filter] = matched_categories[matched_categories.From == category].To.values[0]
 
     return df
 
@@ -156,12 +161,17 @@ def get_plots(df: pd.DataFrame) -> Tuple:
         title='Interactive log-plot issue type funds lost over time'
     )
 
-    fig_scatter_category = px.scatter(
+    fig_sub_scatter_category = px.scatter(
         df, x="date", y="fundsLost", size="fundsLost", color="category", hover_name="category", log_y=True,
         title='Interactive log-plot category funds lost over time'
     )
 
-    return fig_scatter_issue, fig_scatter_category
+    fig_upper_scatter_category = px.scatter(
+        df, x="date", y="fundsLost", size="fundsLost", color="upper_category", hover_name="upper_category", log_y=True,
+        title='Interactive log-plot category funds lost over time'
+    )
+
+    return fig_scatter_issue, fig_sub_scatter_category, fig_upper_scatter_category
 
 
 def run_main(limit: int = 1000, show_plots: bool = False) -> Tuple:
@@ -177,37 +187,40 @@ def run_main(limit: int = 1000, show_plots: bool = False) -> Tuple:
     # 1. Create GraphQL query to fetch rekts
     gql_client = get_graphql_client()
 
-    chains_response = execute_gql_query(client=gql_client, query=q.query_get_chain_ids)
-    chains_list = chains_response['chains']
+    # For future work: Analyze rekt of different chains
+    # chains_response = execute_gql_query(client=gql_client, query=q.query_get_chain_ids)
+    # chains_list = chains_response['chains']
 
     # 2. Fetch rekts data and transform the data to DataFrame
     df_rekts = get_all_rekts(client=gql_client, limit=limit)
-    df_copy = df_rekts.set_index('date')
     matching_categories = match_similar_categories(df=df_rekts)
-    df_test = map_categories(df=df_rekts, matched_categories=matching_categories)
+    df_rekts = map_categories(df=df_rekts, matched_categories=matching_categories)
+    df_copy = df_rekts.set_index('date')
 
     # 3. Compute key statistics
     issue_type_count = df_rekts.groupby(['issueType']).size()
     issue_type_mean = df_rekts.groupby(['issueType']).mean()
     category_count = df_rekts.groupby(['category']).size()
     category_mean = df_rekts.groupby(['category']).mean()
+    upper_category_count = df_rekts.groupby(['upper_category']).size()
+    upper_category_mean = df_rekts.groupby(['upper_category']).mean()
     year_count = df_copy.groupby(pd.Grouper(freq='Y')).size()
 
-    # TODO: Do granular analysis with categories and issue type per year
-    #  https://stackoverflow.com/questions/35898667/group-by-time-and-other-column-in-pandas
+    # For future work: Do granular analysis with categories and issue type per year
     # year_count_category = df_copy.groupby([pd.Grouper(freq='Y'), 'category']).size()
     # year_count_issue = df_copy.groupby([pd.Grouper(freq='Y'), 'issueType']).size()
 
     # 4. Plot insights
-    fig_scatter_issue, fig_scatter_category = get_plots(df=df_rekts)
+    fig_scatter_issue, fig_scatter_sub_category, fig_scatter_upper_category = get_plots(df=df_rekts)
 
     if show_plots:
         fig_scatter_issue.show()
-        fig_scatter_category.show()
+        fig_scatter_sub_category.show()
+        fig_scatter_upper_category.show()
 
-    return df_rekts, issue_type_count, issue_type_mean, category_count, category_mean, year_count
+    return df_rekts, issue_type_count, issue_type_mean, category_count, category_mean, upper_category_count, upper_category_mean, year_count
 
 
 if __name__ == "__main__":
-    df, issue_count, issue_type_mean, category_count, category_mean, year_count = run_main(limit=250, show_plots=True)
+    df, issue_count, issue_type_mean, category_count, category_mean, upper_category_count, upper_category_mean, year_count = run_main(limit=250, show_plots=True)
     print(df)
