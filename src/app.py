@@ -1,4 +1,5 @@
 from datetime import datetime
+from PIL import Image
 import streamlit as st
 import pandas as pd
 
@@ -11,8 +12,7 @@ st.title('Rekts Analysis')
 st.text('Data fetched at {0} CET'.format(now_str))
 
 # Fetch data from the main script
-# FIXME: Change limit back to 1000
-df_rekts, issue_type_count, issue_type_mean, sub_category_count, sub_category_mean, upper_category_count, upper_category_mean, year_count = run_main(limit=100, show_plots=False)
+df_rekts, issue_type_count, issue_type_mean, sub_category_count, sub_category_mean, upper_category_count, upper_category_mean, year_count = run_main(limit=1000, show_plots=False)
 
 # Prepare visualization plots
 lost_returned_mean = df_rekts.mean()
@@ -37,14 +37,14 @@ st.line_chart(df_year_count)
 st.text('So far {0:,} dollars have been lost by rekts, and {1:,} dollars have been returned'.format(
     df_rekts.fundsLost.sum(), df_rekts.fundsReturned.sum())
 )
-# Future work: Plot cummulative losses
+# Future work: Plot cumulative losses
 # st.line_chart(df_cum_sum)
 
 fig_scatter_issue, fig_scatter_sub_category, fig_scatter_upper_category = get_plots(df=df_rekts)
 
-st.header('Data per category, issue type, and more')
+st.header('Data per upper-category, sub-category, issue type, seasonality and more')
 # Future work: Create analysis for chains and token tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(['Issue type', 'Upper category', 'Sub-category', 'Token', 'Chain'])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Issue type', 'Upper category', 'Sub-category', 'Seasonality', 'Token', 'Chain'])
 with tab1:
     st.subheader("{0} is the most common rekt issue type with {1:.0%} of the time".format(main_issue, max_issue_pct))
     st.bar_chart(df_issue_count)
@@ -79,7 +79,6 @@ with tab2:
     st.bar_chart(upper_category_mean)
     st.plotly_chart(fig_scatter_upper_category, use_container_width=True)
 
-
 with tab3:
     st.subheader("{0} is the most rekt sub-category with {1:.0%} of the time".format(main_sub_category, max_sub_category_pct))
     st.bar_chart(df_sub_category_count)
@@ -98,7 +97,13 @@ with tab3:
     st.plotly_chart(fig_scatter_sub_category, use_container_width=True)
 
 with tab4:
-    st.text("Future work...")
+    st.subheader("According to our forecast, the rekt trend will continue to grow")
+    st.text('Interestingly, the months of February and November have a strong seasonality effect where most of rekts take place')
+    image = Image.open('img/seasonality.png')
+    st.image(image, caption='Strong seasonality effect in the months of February and November')
 
 with tab5:
+    st.text("Future work...")
+
+with tab6:
     st.text("Future work...")
