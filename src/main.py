@@ -60,11 +60,14 @@ def get_all_rekt_summaries(client: Client, limit: int = 100) -> pd.Series:
         list_rekts.append(df_rekt_descriptions)
 
     # Concat list of DataFrames into single combined DataFrame
-    all_rekt_description = pd.concat(list_rekts)
+    df_all_rekt_description = pd.concat(list_rekts)
+    series_all_descriptions = df_all_rekt_description.description.dropna()
 
     # Process text and fetch only rekt summaries
     condition = '<p><strong>Quick Summary</strong></p><p>'
-    first_slice = all_rekt_description.description.apply(lambda x: x.split(condition)[1] if condition in x else x.split('<p>')[1])
+    filter = series_all_descriptions.apply(lambda x: '<p dir' not in x)
+    descriptions_filtered = series_all_descriptions[filter]
+    first_slice = descriptions_filtered.apply(lambda x: x.split(condition)[1] if condition in x else x.split('<p>')[1])
     summaries = first_slice.apply(lambda x: x.split('.&nbsp;</p>')[0])
 
     return summaries
