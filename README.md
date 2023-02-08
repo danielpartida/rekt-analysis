@@ -10,6 +10,9 @@ The Streamlit deployed app can be found under this [link](https://intense-brook-
 
 **Important Note** The Streamlit application takes approx. 1min to load and render
 
+**Another important note** There are several tabs for different analysis in the Streamlit app, please make sure to take
+a look at the different tabs ("Issue Type", "Upper-category", "Sub-category" and "Seasonality")
+
 This repository contains the analysis of the major web3 rekts. The code is implemented under the src/ directory.
 Under the src/ directory, a Streamlit dashboard is implemented at src/app to visualize key insights. 
 The data is fetched and processed at src/main.py. A seasonality analysis is done at src/seasonality.py. 
