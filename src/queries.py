@@ -28,6 +28,23 @@ query {
 }
 """
 
+# TODO: Make this query dynamic and change the pageSize to 50
+description_query = """
+query {
+  rekts(
+    pageNumber:1
+    pageSize:10
+    orderBy: {
+      fundsLost: desc
+    }
+  ) {
+    id
+    projectName
+    description
+  }
+}
+"""
+
 
 def get_rekt_query(page_number: int = 1, page_size: int = 50) -> str:
     """

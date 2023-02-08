@@ -71,14 +71,29 @@ under an .env file. Please add an .env file before executing the code and set yo
   - ~~Funds lost over time (year by year)?~~
   - ~~Ratio of lost and recovered funds~~
   - Do analysis for token and chain -> in which chain and tokens do we find the biggest scams?
+- Do more complex analysis
+  - Label the x- and y-axis
+  - Cummsum of losses, sliding windows 
+  - Binding of similar categories
 - Run NLP task to analyze details of exploit, for example keywords or topics
+  - PolyFuzz
+  - Topic modelling
+  - Summarization
+  - Question answering from details
+  - Table question answering
+  - Zero-shot classification
+  - Sentence similarity
+- Analyze seasonality with Prophet
 - ~~Deploy app to Heroku!!!~~
 
 ## Future work
 The following points are ideas on how to expand the current rekt analysis and continue the implementation
 - Improve the performance of the Streamlit app. Another alternative is creating a Dash application where the render is
 more performant
+- Implement other NLP tasks to gather further insights from the rekt descriptions. Some ideas that I have in mind are
+doing a [zero-shot classification](https://huggingface.co/facebook/bart-large-mnli), a [similarity analysis](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2),
+and [table question answering](https://huggingface.co/google/tapas-base-finetuned-wtq)
 - Run seasonality analysis with [Prophet](https://facebook.github.io/prophet/docs/quick_start.html)
 - Expand dashboard enabling further granular analysis on chain and token
-- Analyze how a project token evolve after a scam. Analyze how costly is every scam for the ecosystem.
+- Analyze how a project token evolve after a scam. Analyze how costly is every scam for the ecosystem
 - Add text search for searching specific rekt in database
