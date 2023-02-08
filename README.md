@@ -74,7 +74,7 @@ under an .env file. Please add an .env file before executing the code and set yo
 - Do more complex analysis
   - Label the x- and y-axis
   - Cummsum of losses, sliding windows 
-  - Binding of similar categories
+  - Binding of similar categories with PolyFuzz
 - Run NLP task to analyze details of exploit, for example keywords or topics
   - PolyFuzz
   - Topic modelling
@@ -90,9 +90,11 @@ under an .env file. Please add an .env file before executing the code and set yo
 The following points are ideas on how to expand the current rekt analysis and continue the implementation
 - Improve the performance of the Streamlit app. Another alternative is creating a Dash application where the render is
 more performant
-- Implement other NLP tasks to gather further insights from the rekt descriptions. Some ideas that I have in mind are
-doing a [zero-shot classification](https://huggingface.co/facebook/bart-large-mnli), a [similarity analysis](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2),
-and [table question answering](https://huggingface.co/google/tapas-base-finetuned-wtq)
+- Implement other NLP tasks to gather further insights from the rekt descriptions. Some ideas that I have in mind are the following:
+  - [Zero-shot classification](https://huggingface.co/facebook/bart-large-mnli) to present an alternative clustering of different rekts categories based on their description 
+  - [Similarity analysis](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) to visualize similar rekt descriptions
+  - [Question answering](https://huggingface.co/distilbert-base-cased-distilled-squad) to explain the reason behind complex rekts 
+  - [Summarization](https://huggingface.co/philschmid/bart-large-cnn-samsum) task to give in a nutshell the main exploit reasons
 - Run seasonality analysis with [Prophet](https://facebook.github.io/prophet/docs/quick_start.html)
 - Expand dashboard enabling further granular analysis on chain and token
 - Analyze how a project token evolve after a scam. Analyze how costly is every scam for the ecosystem
