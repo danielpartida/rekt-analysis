@@ -70,13 +70,9 @@ under an .env file. Please add an .env file before executing the code and set yo
   - ~~What is the main type of exploit?~~
   - ~~Funds lost over time (year by year)?~~
   - ~~Ratio of lost and recovered funds~~
-  - Do analysis for token and chain -> in which chain and tokens do we find the biggest scams?
-- Do more complex analysis
-  - Label the x- and y-axis
-  - Cummsum of losses, sliding windows 
-  - Binding of similar categories with PolyFuzz
+  - ~~Cummsum of losses, sliding windows~~
+  - ~~Binding of similar categories with PolyFuzz~~
 - Run NLP task to analyze details of exploit, for example keywords or topics
-  - PolyFuzz
   - Topic modelling
   - Summarization
   - Question answering from details
@@ -95,6 +91,7 @@ more performant
   - [Similarity analysis](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) to visualize similar rekt descriptions
   - [Question answering](https://huggingface.co/distilbert-base-cased-distilled-squad) to explain the reason behind complex rekts 
   - [Summarization](https://huggingface.co/philschmid/bart-large-cnn-samsum) task to give in a nutshell the main exploit reasons
+  - [Topic modelling](https://maartengr.github.io/BERTopic/index.html) to represent the key topics of the rekt descriptions
 - Run seasonality analysis with [Prophet](https://facebook.github.io/prophet/docs/quick_start.html)
 - Expand dashboard enabling further granular analysis on chain and token
 - Analyze how a project token evolve after a scam. Analyze how costly is every scam for the ecosystem
