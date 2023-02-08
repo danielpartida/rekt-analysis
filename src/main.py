@@ -6,6 +6,7 @@ import plotly.express as px
 from dotenv import load_dotenv
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
+from polyfuzz import PolyFuzz
 
 import queries as q
 
@@ -40,6 +41,38 @@ def execute_gql_query(client: Client, query: str):
     gql_response = client.execute(gql_query)
 
     return gql_response
+
+
+def match_similar_categories(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Match similar categories using PolyFuzz. Matches are done via TF-IDF https://en.wikipedia.org/wiki/Tf%E2%80%93idf
+    :param df: pd.DataFrame to match
+    :return: pd.DataFrame matched
+    """
+    from_list = list(df.category.unique())
+    from_list.remove(None)
+    to_list = ['Other', 'CeFi', 'Borrowing and Lending', 'Yield Aggregator', 'Gaming / Metaverse', 'Bridge',
+               'Stablecoin', 'Exchange (DEX)', 'Token', 'Borrowing and Lending', 'NFT']
+    model = PolyFuzz("TF-IDF").match(from_list, to_list)
+    matches = model.get_matches()
+
+    return matches
+
+
+def map_categories(df: pd.DataFrame, matched_categories: pd.DataFrame):
+    """
+    Match subcategories with their main category
+    :param df: pd.DataFrame with rekt categories
+    :param matched_categories: pd.DataFrame with matching of subcategories with parent category
+    :return: pd.DataFrame with matched parent category
+    """
+    categories = list(df.category.unique())
+    categories = filter(None)
+    for category in categories:
+        filter = category == df['category']
+        df['matched_category'][filter]= matched_categories[matched_categories.From == category].To.values[0]
+
+    return df
 
 
 def get_all_rekt_summaries(client: Client, limit: int = 100) -> pd.Series:
@@ -150,6 +183,8 @@ def run_main(limit: int = 1000, show_plots: bool = False) -> Tuple:
     # 2. Fetch rekts data and transform the data to DataFrame
     df_rekts = get_all_rekts(client=gql_client, limit=limit)
     df_copy = df_rekts.set_index('date')
+    matching_categories = match_similar_categories(df=df_rekts)
+    df_test = map_categories(df=df_rekts, matched_categories=matching_categories)
 
     # 3. Compute key statistics
     issue_type_count = df_rekts.groupby(['issueType']).size()
@@ -174,4 +209,5 @@ def run_main(limit: int = 1000, show_plots: bool = False) -> Tuple:
 
 
 if __name__ == "__main__":
-    df, issue_count, issue_type_mean, category_count, category_mean, year_count = run_main(limit=100, show_plots=True)
+    df, issue_count, issue_type_mean, category_count, category_mean, year_count = run_main(limit=250, show_plots=True)
+    print(df)
