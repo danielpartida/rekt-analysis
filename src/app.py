@@ -34,10 +34,16 @@ col2.metric("Average returned funds after a rekt occurred in $", "{0:,}".format(
 st.subheader("Rekts have an increasing trend peaking at {0} occurrences in {1}".format(year_count.max(), main_year))
 st.line_chart(df_year_count)
 
+st.text('So far {0:,} dollars have been lost by rekts, and {1:,} dollars have been returned'.format(
+    df_rekts.fundsLost.sum(), df_rekts.fundsReturned.sum())
+)
+# Future work: Plot cummulative losses
+# st.line_chart(df_cum_sum)
+
 fig_scatter_issue, fig_scatter_sub_category, fig_scatter_upper_category = get_plots(df=df_rekts)
 
 st.header('Data per category, issue type, and more')
-# TODO: Create tabs by chain and/or token
+# Future work: Create analysis for chains and token tabs
 tab1, tab2, tab3, tab4, tab5 = st.tabs(['Issue type', 'Upper category', 'Sub-category', 'Token', 'Chain'])
 with tab1:
     st.subheader("{0} is the most common rekt issue type with {1:.0%} of the time".format(main_issue, max_issue_pct))
@@ -91,8 +97,8 @@ with tab3:
     st.bar_chart(sub_category_mean)
     st.plotly_chart(fig_scatter_sub_category, use_container_width=True)
 
-with tab3:
+with tab4:
     st.text("Future work...")
 
-with tab4:
+with tab5:
     st.text("Future work...")

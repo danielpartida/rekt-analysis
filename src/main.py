@@ -178,8 +178,8 @@ def run_main(limit: int = 1000, show_plots: bool = False) -> Tuple:
     """
     Main execution method. It follows 4 steps.
     1. Creates a GraphQL query for the Rekt database of DeFiYield App
-    2. It fetches the rekt data and process the data
-    3. It computes key metrics
+    2. It fetches the rekt data and process the data. It uses NLP techniques to combine similar categories
+    3. It computes key metrics such as average loss per category, etc
     4. It plots key insights, displays the plots and saves the plots if parameter save_plots is True
     :param limit: Limit of rekts to fetch
     :return: Tuple
@@ -196,6 +196,10 @@ def run_main(limit: int = 1000, show_plots: bool = False) -> Tuple:
     matching_categories = match_similar_categories(df=df_rekts)
     df_rekts = map_categories(df=df_rekts, matched_categories=matching_categories)
     df_copy = df_rekts.set_index('date')
+    # Future work: add cummulative losses
+    # df_copy['cumsum_funds_lost'] = df_copy.fundsLost.cumsum()
+    # df_copy['cumsum_funds_returned'] = df_copy.fundsReturned.cumsum()
+    # df_cum_sum = df_copy[['cumsum_funds_lost', 'cumsum_funds_returned']]
 
     # 3. Compute key statistics
     issue_type_count = df_rekts.groupby(['issueType']).size()
@@ -222,5 +226,4 @@ def run_main(limit: int = 1000, show_plots: bool = False) -> Tuple:
 
 
 if __name__ == "__main__":
-    df, issue_count, issue_type_mean, category_count, category_mean, upper_category_count, upper_category_mean, year_count = run_main(limit=250, show_plots=True)
-    print(df)
+    df_rekts, issue_count, issue_type_mean, category_count, category_mean, upper_category_count, upper_category_mean, year_count = run_main(limit=100, show_plots=True)
